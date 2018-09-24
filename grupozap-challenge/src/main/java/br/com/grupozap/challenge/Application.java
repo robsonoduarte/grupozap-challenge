@@ -1,12 +1,12 @@
-package br.com.grupozap.grupozapchallenge;
+package br.com.grupozap.challenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GrupozapChallengeApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GrupozapChallengeApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
