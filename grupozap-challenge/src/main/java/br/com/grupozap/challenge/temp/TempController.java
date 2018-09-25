@@ -14,13 +14,18 @@ public class TempController {
 	@Autowired
 	private Repo repo;
 
+/*	@Autowired
+	private RepoImpl repoimpl;*/
 
 	@GetMapping("temp")
 	public Page<Immobile> get(Temp temp) {
-		System.out.println(temp.page);
+/*		System.out.println(temp.page);
 		System.out.println(temp.portal);
 		Page<Immobile> page = repo.findAll(PageRequest.of(temp.page, 20));
-		return page;
+
+		Page<Immobile> x = repoimpl.aluguelVivaReal();*/
+
+		return repo.aluguelVivaReal(PageRequest.of(temp.page, 20));
 	}
 
 
