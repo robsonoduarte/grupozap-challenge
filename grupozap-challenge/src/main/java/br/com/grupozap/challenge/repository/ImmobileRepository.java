@@ -12,4 +12,10 @@ public interface ImmobileRepository extends MongoRepository<Immobile, String> {
 	@Query("{ $and: [{\"pricingInfos.businessType\" : \"RENTAL\"},{ \"pricingInfos.rentalTotalPrice\": { $lte: 4000 } }, { $where: \"this.pricingInfos.monthlyCondoFee  <= this.pricingInfos.rentalTotalPrice * 0.3\" }, {\"address.geoLocation.precision\": {$ne : \"NO_GEOCODE\"}} ] }")
 	Page<Immobile> findAllImobileToRentalForVivaReal(Pageable pageable);
 
+	@Query("{ $and: [{\"pricingInfos.businessType\" : \"SALE\"},{ \"pricingInfos.price\": { $lte: 700000 } }, {\"address.geoLocation.precision\": {$ne : \"NO_GEOCODE\"}} ] }")
+	Page<Immobile> findAllImobileToSaleForVivaReal(Pageable pageable);
+
+	@Query("{ $and: [{\"pricingInfos.businessType\" : \"RENTAL\"},{ \"pricingInfos.rentalTotalPrice\": { $gte: 3500 } }, {\"address.geoLocation.precision\": {$ne : \"NO_GEOCODE\"}} ] }")
+	Page<Immobile> findAllImobileToRentalForZap(Pageable pageable);
+
 }
