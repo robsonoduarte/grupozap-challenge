@@ -3,6 +3,7 @@ package br.com.grupozap.challenge.repository;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
@@ -42,9 +43,9 @@ public class ImmobileRepositoryTest {
 
 
 	    //Um imóvel apenas é elegível pro portal Vivareal:
+		// Ele tem lat e lon diferente de 0.
 	    //Quando for aluguel e no máximo o valor for de R$ 4.000,00.
 		//valor do condomínio não pode ser maior/igual que 30% do valor do aluguel.
-		// Ele tem lat e lon diferente de 0.
 
 		pageResult.getContent().forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
@@ -66,8 +67,8 @@ public class ImmobileRepositoryTest {
 		assertThat(pageResult.getContent(), not(empty()));
 
 		//Um imóvel apenas é elegível pro portal Vivareal:
-		// Quando for venda e no máximo o valor for de R$ 700.000,00.
 		// Ele tem lat e lon diferente de 0.
+		// Quando for venda e no máximo o valor for de R$ 700.000,00.
 
 		pageResult.getContent().forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
@@ -136,15 +137,39 @@ public class ImmobileRepositoryTest {
 
 		assertThat(pageResult.getContent(), not(empty()));
 
-	    //Um imóvel apenas é elegível pro portal Vivareal:
-	    //Quando for aluguel e no mínimo o valor for de R$ 3.500,00.
+	    //Um imóvel apenas é elegível pro portal ZAP:
 		// Ele tem lat e lon diferente de 0.
+	    //Quando for aluguel e no mínimo o valor for de R$ 3.500,00.
 
 		pageResult.getContent().forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
 			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("RENTAL"));
 			assertThat(immobile.getPricingInfos().getRentalTotalPrice(), greaterThanOrEqualTo(3500l));
+		});
+
+	}
+
+	@Test
+	public void shouldFindAllImobileThatIsEligibleToSaleForVivaZap() {
+
+		Page<Immobile> pageResult =
+				repository.findAllImobileToSaleForZap(PageRequest.of(0, 20));
+
+
+		assertThat(pageResult.getContent(), not(empty()));
+
+		//Um imóvel apenas é elegível pro portal ZAP:
+		// Ele tem lat e lon diferente de 0.
+        // Quando for venda e no mínimo o valor for de R$ 600.000,00.
+		// O valor do metro quadrado (chave usableAreas) não pode ser menor/igual a R$ 3.500,00.
+
+		pageResult.getContent().forEach( immobile -> {
+			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
+			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
+			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("SALE"));
+			assertThat(immobile.getPricingInfos().getPrice(), greaterThanOrEqualTo(600000l));
+			assertThat(immobile.getUsableAreas(), greaterThan(3500));
 		});
 
 	}
@@ -169,6 +194,28 @@ public class ImmobileRepositoryTest {
 		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
 		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
 		assertThat(pageResult.getTotalElements(), equalTo(933L));
+
+	}
+
+
+	@Test
+	public void shouldFindAllImobileThatIsEligibleToSaleForZapAndReturnInPaginationMode() {
+
+		Page<Immobile> pageResult =
+				repository.findAllImobileToSaleForZap(PageRequest.of(0, 20));
+
+		assertThat(pageResult.getContent(), hasSize(12));
+		assertThat(pageResult.getPageable().getPageNumber(), equalTo(0));
+		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
+		assertThat(pageResult.getTotalElements(), equalTo(12L));
+
+		pageResult =
+				repository.findAllImobileToSaleForZap(PageRequest.of(1, 20));
+
+		assertThat(pageResult.getContent(), hasSize(0));
+		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
+		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
+		assertThat(pageResult.getTotalElements(), equalTo(12L));
 
 	}
 
