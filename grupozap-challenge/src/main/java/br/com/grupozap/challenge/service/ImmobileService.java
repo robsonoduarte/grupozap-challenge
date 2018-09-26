@@ -4,8 +4,12 @@ import static org.apache.commons.lang3.StringUtils.upperCase;
 import static org.springframework.data.domain.Page.empty;
 import static org.springframework.data.domain.PageRequest.of;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +28,11 @@ public class ImmobileService {
 	private ImmobileRepository immobileRepository;
 
 
+	@Autowired
+	private BoundingBoxGrupoZapService boundingBoxGrupoZapService;
+
+
+
 
 	public Page<Immobile> getPropertiesToRental(ImmobileParameters parameters) {
 
@@ -32,11 +41,32 @@ public class ImmobileService {
 		}
 
 		if(PORTAL_VIVALREAL.equals(upperCase(parameters.getPortal()))) {
-			return immobileRepository.findAllImmobileToRentalForVivaReal(pageable(parameters));
+			Page<Immobile> page = immobileRepository.findAllImmobileToRentalForVivaReal(pageable(parameters));
+
+			List<Immobile> content = new ArrayList<>();
+
+			page.forEach( immobile -> {
+				if(isInBoundingBox(immobile)) {
+					content.add(immobile.increaseRentalTotalPrice(50));
+				}else {
+					content.add(immobile);
+				}
+			});
+
+			return newPage(page, content);
 		}
 
 		return empty();
 	}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,5 +99,11 @@ public class ImmobileService {
 		return of(parameters.getPage(), PAGE_SIZE);
 	}
 
+	private boolean isInBoundingBox(Immobile immobile) {
+		return boundingBoxGrupoZapService.isBoundingbox(immobile.location());
+	}
 
+	private PageImpl<Immobile> newPage(Page<Immobile> page, List<Immobile> content) {
+		return new PageImpl<>(content, page.getPageable(), page.getTotalElements());
+	}
 }

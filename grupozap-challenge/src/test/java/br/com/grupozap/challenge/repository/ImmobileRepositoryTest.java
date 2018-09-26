@@ -47,7 +47,7 @@ public class ImmobileRepositoryTest {
 	    //Quando for aluguel e no máximo o valor for de R$ 4.000,00.
 		//valor do condomínio não pode ser maior/igual que 30% do valor do aluguel.
 
-		pageResult.getContent().forEach( immobile -> {
+		pageResult.forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
 			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("RENTAL"));
@@ -70,7 +70,7 @@ public class ImmobileRepositoryTest {
 		// Ele tem lat e lon diferente de 0.
 		// Quando for venda e no máximo o valor for de R$ 700.000,00.
 
-		pageResult.getContent().forEach( immobile -> {
+		pageResult.forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
 			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("SALE"));
@@ -141,7 +141,7 @@ public class ImmobileRepositoryTest {
 		// Ele tem lat e lon diferente de 0.
 	    //Quando for aluguel e no mínimo o valor for de R$ 3.500,00.
 
-		pageResult.getContent().forEach( immobile -> {
+		pageResult.forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
 			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("RENTAL"));
@@ -164,7 +164,7 @@ public class ImmobileRepositoryTest {
         // Quando for venda e no mínimo o valor for de R$ 600.000,00.
 		// O valor do metro quadrado (chave usableAreas) não pode ser menor/igual a R$ 3.500,00.
 
-		pageResult.getContent().forEach( immobile -> {
+		pageResult.forEach( immobile -> {
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLat(), not(0.0));
 			assertThat(immobile.getAddress().getGeoLocation().getLocation().getLon(), not(0.0));
 			assertThat(immobile.getPricingInfos().getBusinessType(), equalTo("SALE"));
