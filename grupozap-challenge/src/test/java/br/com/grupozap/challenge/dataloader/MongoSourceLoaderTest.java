@@ -43,7 +43,7 @@ public class MongoSourceLoaderTest {
 
 
 	@Test
-	public void test() throws Exception {
+	public void shouldLoadTheSourceInMogoDb() throws Exception {
 		when(grupoZapSourceLoader.loadLines()).thenReturn(asList(JSON));
 		sourceLoader.loadSourceInMongo();
 		verify(grupoZapSourceLoader).loadLines();
