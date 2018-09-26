@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
@@ -80,50 +79,6 @@ public class ImmobileRepositoryTest {
 	}
 
 
-	@Test
-	public void shouldFindAllImmobileThatIsEligibleToRentalForVivaRealAndReturnInPaginationMode() {
-
-		Page<Immobile> pageResult =
-				repository.findAllImmobileToRentalForVivaReal(PageRequest.of(0, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(0));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(514L));
-
-		pageResult =
-				repository.findAllImmobileToRentalForVivaReal(PageRequest.of(1, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(514L));
-
-	}
-
-
-	@Test
-	public void shouldFindAllImmobileThatIsEligibleToSAleForVivaRealAndReturnInPaginationMode() {
-
-		Page<Immobile> pageResult =
-				repository.findAllImmobileToSaleForVivaReal(PageRequest.of(0, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(0));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(4528l));
-
-		pageResult =
-				repository.findAllImmobileToSaleForVivaReal(PageRequest.of(1, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(4528l)); // TODO: remover ou adicionar comentário que esse número não pode mudar no arquivo...
-
-	}
-
-
 
 
 	// TESTES PARA FIND DE IMOVEIS LEGIVEIS PARA O ZAP
@@ -171,54 +126,6 @@ public class ImmobileRepositoryTest {
 			assertThat(immobile.getPricingInfos().getPrice(), greaterThanOrEqualTo(600000l));
 			assertThat(immobile.getUsableAreas(), greaterThan(3500));
 		});
-
 	}
-
-
-
-	@Test
-	public void shouldFindAllImmobileThatIsEligibleToRentalForZapAndReturnInPaginationMode() {
-
-		Page<Immobile> pageResult =
-				repository.findAllImmobileToRentalForZap(PageRequest.of(0, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(0));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(933L));
-
-		pageResult =
-				repository.findAllImmobileToRentalForZap(PageRequest.of(1, 20));
-
-		assertThat(pageResult.getContent(), hasSize(20));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(933L));
-
-	}
-
-
-	@Test
-	public void shouldFindAllImmobileThatIsEligibleToSaleForZapAndReturnInPaginationMode() {
-
-		Page<Immobile> pageResult =
-				repository.findAllImmobileToSaleForZap(PageRequest.of(0, 20));
-
-		assertThat(pageResult.getContent(), hasSize(12));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(0));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(12L));
-
-		pageResult =
-				repository.findAllImmobileToSaleForZap(PageRequest.of(1, 20));
-
-		assertThat(pageResult.getContent(), hasSize(0));
-		assertThat(pageResult.getPageable().getPageNumber(), equalTo(1));
-		assertThat(pageResult.getPageable().getPageSize(), equalTo(20));
-		assertThat(pageResult.getTotalElements(), equalTo(12L));
-
-	}
-
-
 
 }
