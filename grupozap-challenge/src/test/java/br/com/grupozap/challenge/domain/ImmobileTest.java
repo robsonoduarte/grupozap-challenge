@@ -23,14 +23,14 @@ public class ImmobileTest {
 		location = Location.builder().build();
 
 		immobile = Immobile.builder()
-					.pricingInfos(PricingInfos.builder().rentalTotalPrice(100).build())
+					.pricingInfos(PricingInfos.builder().rentalTotalPrice(100).price(100).build())
 					.address(Address.builder().geoLocation(GeoLocation.builder().location(location).build()).build())
 					.build();
 	}
 
 
 	@Test
-	public void shouldIncreaseTheRentalTotalPiceWithThePercentageAndReturnOneNewImmobile() {
+	public void shouldIncreaseTheRentalTotalPriceWithThePercentageAndReturnOneNewImmobile() {
 		Immobile immobileIncreasedRentaTotalPrice = immobile.increaseRentalTotalPrice(50);
 		assertThat(immobileIncreasedRentaTotalPrice, notNullValue());
 		assertThat(immobileIncreasedRentaTotalPrice, not((sameInstance(immobile))));
@@ -38,9 +38,23 @@ public class ImmobileTest {
 	}
 
 
+	@Test
+	public void shouldDecreaseThePriceWithThePercentageAndReturnOneNewImmobile() {
+		Immobile immobileDecreasedRentaTotalPrice = immobile.decreasePrice(10);
+		assertThat(immobileDecreasedRentaTotalPrice, notNullValue());
+		assertThat(immobileDecreasedRentaTotalPrice, not((sameInstance(immobile))));
+		assertThat(immobileDecreasedRentaTotalPrice.getPricingInfos().getPrice(), equalTo(90l));
+	}
+
+
 	@Test(expected=IllegalStateException.class)
-	public void shouldThrowOneIllegalStateExceptionWhenImmobileDontHavePrincingIngos() {
+	public void shouldThrowOneIllegalStateExceptionWhenImmobileDontHavePrincingInfosToIncreaseRentalTotalPrice() {
 		Immobile.builder().build().increaseRentalTotalPrice(50);
+	}
+
+	@Test(expected=IllegalStateException.class)
+	public void shouldThrowOneIllegalStateExceptionWhenImmobileDontHavePrincingInfosToDecreasePrice() {
+		Immobile.builder().build().decreasePrice(10);
 	}
 
 

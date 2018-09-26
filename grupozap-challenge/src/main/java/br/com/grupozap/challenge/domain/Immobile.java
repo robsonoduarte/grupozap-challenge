@@ -40,16 +40,24 @@ public class Immobile {
 
 
 	public Immobile increaseRentalTotalPrice(int percentage) {
-		if(this.pricingInfos == null) {
-			throw new IllegalStateException("The Immobile don't have one pricingInfos");
-		}
-
+		validatePrincigInfos();
 		long rentalTotalPrice = this.pricingInfos.getRentalTotalPrice();
 		long increasedRentalTotalPrice = rentalTotalPrice + ((rentalTotalPrice * percentage) / 100);
 		return this.toBuilder()
 				.pricingInfos(this.pricingInfos.toBuilder().rentalTotalPrice(increasedRentalTotalPrice).build())
 				.build();
 	}
+
+
+	public Immobile decreasePrice(int percentage) {
+		validatePrincigInfos();
+		long price = this.pricingInfos.getPrice();
+		long decreasedPrice = price - ((price * percentage)/100);
+		return this.toBuilder()
+				.pricingInfos(this.pricingInfos.toBuilder().price(decreasedPrice).build())
+				.build();
+	}
+
 
 
 
@@ -61,6 +69,16 @@ public class Immobile {
 		}
 		return this.address.getGeoLocation().getLocation();
 	}
+
+
+
+
+	private void validatePrincigInfos() {
+		if(this.pricingInfos == null) {
+			throw new IllegalStateException("The Immobile don't have one pricingInfos");
+		}
+	}
+
 
 
 }
