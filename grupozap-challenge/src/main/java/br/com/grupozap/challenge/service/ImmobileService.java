@@ -36,6 +36,8 @@ public class ImmobileService {
 
 	public Page<Immobile> getPropertiesToRental(ImmobileParameters parameters) {
 
+		validateParameter(parameters);
+
 		if(PORTAL_ZAP.equals(upperCase(parameters.getPortal()))) {
 			return immobileRepository.findAllImmobileToRentalForZap(pageable(parameters));
 		}
@@ -67,6 +69,8 @@ public class ImmobileService {
 
 	public Page<Immobile> getPropertiesToSale(ImmobileParameters parameters) {
 
+		validateParameter(parameters);
+
 		if(PORTAL_ZAP.equals(upperCase(parameters.getPortal()))) {
 
 			Page<Immobile> page = immobileRepository.findAllImmobileToSaleForZap(pageable(parameters));
@@ -97,11 +101,11 @@ public class ImmobileService {
 
 
 
-
-
-
-
-
+	private void validateParameter(ImmobileParameters parameters) {
+		if(parameters == null) {
+			throw new IllegalArgumentException("parameters is null");
+		}
+	}
 
 	private Pageable pageable(ImmobileParameters parameters) {
 		return of(parameters.getPage(), PAGE_SIZE);

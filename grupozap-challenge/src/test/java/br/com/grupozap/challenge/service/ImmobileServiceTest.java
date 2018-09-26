@@ -162,6 +162,12 @@ public class ImmobileServiceTest {
 	}
 
 
+	@Test(expected=IllegalArgumentException.class)
+	public void shouldThrowOneIllegalArgumentExceptionWheImmobileParametersIsNullToGetPropertiesToRental() {
+		service.getPropertiesToRental(null);
+	}
+
+
 
 	// TESTE PARA IMOVEIS A VENDA
 
@@ -240,5 +246,10 @@ public class ImmobileServiceTest {
 
 	}
 
+
+	@Test(expected=IllegalArgumentException.class)
+	public void shouldThrowOneIllegalArgumentExceptionWheImmobileParametersIsNullToGetPropertiesToSale() {
+		service.getPropertiesToSale(null);
+	}
 
 }
