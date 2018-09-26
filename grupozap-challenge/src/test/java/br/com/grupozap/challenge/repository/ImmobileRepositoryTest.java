@@ -33,7 +33,7 @@ public class ImmobileRepositoryTest {
 	// TESTES PARA FIND DE IMOVEIS LEGIVEIS PARA O VIVAREAL
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToRentalForVivaReal() {
+	public void shouldFindAllImmobileThatIsEligibleToRentalForVivaReal() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToRentalForVivaReal(PageRequest.of(0, 20));
@@ -59,7 +59,7 @@ public class ImmobileRepositoryTest {
 
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToSaleForVivaReal() {
+	public void shouldFindAllImmobileThatIsEligibleToSaleForVivaReal() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToSaleForVivaReal(PageRequest.of(0, 20));
@@ -81,7 +81,7 @@ public class ImmobileRepositoryTest {
 
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToRentalForVivaRealAndReturnInPaginationMode() {
+	public void shouldFindAllImmobileThatIsEligibleToRentalForVivaRealAndReturnInPaginationMode() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToRentalForVivaReal(PageRequest.of(0, 20));
@@ -103,7 +103,7 @@ public class ImmobileRepositoryTest {
 
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToSAleForVivaRealAndReturnInPaginationMode() {
+	public void shouldFindAllImmobileThatIsEligibleToSAleForVivaRealAndReturnInPaginationMode() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToSaleForVivaReal(PageRequest.of(0, 20));
@@ -129,7 +129,7 @@ public class ImmobileRepositoryTest {
 	// TESTES PARA FIND DE IMOVEIS LEGIVEIS PARA O ZAP
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToRentalForVivaZap() {
+	public void shouldFindAllImmobileThatIsEligibleToRentalForVivaZap() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToRentalForZap(PageRequest.of(0, 20));
@@ -151,7 +151,7 @@ public class ImmobileRepositoryTest {
 	}
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToSaleForVivaZap() {
+	public void shouldFindAllImmobileThatIsEligibleToSaleForVivaZap() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToSaleForZap(PageRequest.of(0, 20));
@@ -177,7 +177,7 @@ public class ImmobileRepositoryTest {
 
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToRentalForZapAndReturnInPaginationMode() {
+	public void shouldFindAllImmobileThatIsEligibleToRentalForZapAndReturnInPaginationMode() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToRentalForZap(PageRequest.of(0, 20));
@@ -199,7 +199,7 @@ public class ImmobileRepositoryTest {
 
 
 	@Test
-	public void shouldFindAllImobileThatIsEligibleToSaleForZapAndReturnInPaginationMode() {
+	public void shouldFindAllImmobileThatIsEligibleToSaleForZapAndReturnInPaginationMode() {
 
 		Page<Immobile> pageResult =
 				repository.findAllImmobileToSaleForZap(PageRequest.of(0, 20));
