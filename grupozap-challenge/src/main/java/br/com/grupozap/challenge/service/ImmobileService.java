@@ -65,15 +65,23 @@ public class ImmobileService {
 
 
 
-
-
-
-
-
 	public Page<Immobile> getPropertiesToSale(ImmobileParameters parameters) {
 
 		if(PORTAL_ZAP.equals(upperCase(parameters.getPortal()))) {
-			return immobileRepository.findAllImmobileToSaleForZap(pageable(parameters));
+
+			Page<Immobile> page = immobileRepository.findAllImmobileToSaleForZap(pageable(parameters));
+
+			List<Immobile> content = new ArrayList<>();
+
+			page.forEach( immobile -> {
+				if(isInBoundingBox(immobile)) {
+					content.add(immobile.decreasePrice(10));
+				}else {
+					content.add(immobile);
+				}
+			});
+
+			return newPage(page, content);
 		}
 
 		if(PORTAL_VIVALREAL.equals(upperCase(parameters.getPortal()))) {

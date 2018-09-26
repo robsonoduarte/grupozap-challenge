@@ -168,20 +168,36 @@ public class ImmobileServiceTest {
 
 
 	@Test
-	public void shouldGetThePropertiesToSaleForPortalZap() {
+	public void shouldGetThePropertiesToSaleForPortalZapAndApplyCalcInPriceWhenImmobileInBoundingBoxOfGrupoZap() {
+
+		page = new PageImpl<>(asList(immobileInBoundingBox,immobileOutBoundingBox),pageable, 50L);
 
 		when(immobileParameters.getPage()).thenReturn(1);
 		when(immobileParameters.getPortal()).thenReturn("zap");
 		when(immobileRepository.findAllImmobileToSaleForZap(of(1, 20))).thenReturn(page);
+		when(immobileInBoundingBox.location()).thenReturn(locationInBoundingBox);
+		when(immobileOutBoundingBox.location()).thenReturn(locationOutBoundingBox);
+		when(immobileInBoundingBox.decreasePrice(10)).thenReturn(immobileWithPricesModified);
+		when(boundingBoxGrupoZapService.isBoundingbox(locationInBoundingBox)).thenReturn(true);
+		when(boundingBoxGrupoZapService.isBoundingbox(locationOutBoundingBox)).thenReturn(false);
 
 		Page<Immobile> pageResult =
 			  service.getPropertiesToSale(immobileParameters);
 
-		assertThat(pageResult, equalTo(page));
+		assertThat(pageResult.getContent(), hasSize(2));
+		assertThat(pageResult.getContent(), contains(immobileWithPricesModified,immobileOutBoundingBox));
+		assertThat(pageResult.getPageable(), equalTo(pageable));
+		assertThat(pageResult.getTotalElements(), equalTo(50L));
 
 		verify(immobileParameters).getPage();
 		verify(immobileParameters).getPortal();
 		verify(immobileRepository).findAllImmobileToSaleForZap(of(1, 20));
+		verify(immobileInBoundingBox).location();
+		verify(immobileOutBoundingBox).location();
+		verify(immobileInBoundingBox).decreasePrice(10);
+		verify(immobileOutBoundingBox, times(0)).decreasePrice(10);
+		verify(boundingBoxGrupoZapService).isBoundingbox(locationInBoundingBox);
+		verify(boundingBoxGrupoZapService).isBoundingbox(locationOutBoundingBox);
 
 	}
 
