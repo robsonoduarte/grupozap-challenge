@@ -50,13 +50,15 @@ public class ImmobileServiceTest {
 
 
 
+	// TESTE PARA IMOVEIS DE ALUGUEL
+
 
 	@Test
 	public void shouldGetThePropertiesToRentalForPortalZap() {
 
 		when(immobileParameters.getPage()).thenReturn(1);
 		when(immobileParameters.getPortal()).thenReturn("zap");
-		when(immobileRepository.findAllImobileToRentalForZap(of(1, 20))).thenReturn(page);
+		when(immobileRepository.findAllImmobileToRentalForZap(of(1, 20))).thenReturn(page);
 
 		Page<Immobile> pageResult =
 			  service.getPropertiesToRental(immobileParameters);
@@ -65,7 +67,7 @@ public class ImmobileServiceTest {
 
 		verify(immobileParameters).getPage();
 		verify(immobileParameters).getPortal();
-		verify(immobileRepository).findAllImobileToRentalForZap(of(1, 20));
+		verify(immobileRepository).findAllImmobileToRentalForZap(of(1, 20));
 
 	}
 
@@ -76,7 +78,7 @@ public class ImmobileServiceTest {
 
 		when(immobileParameters.getPage()).thenReturn(1);
 		when(immobileParameters.getPortal()).thenReturn("vivareal");
-		when(immobileRepository.findAllImobileToRentalForVivaReal(of(1, 20))).thenReturn(page);
+		when(immobileRepository.findAllImmobileToRentalForVivaReal(of(1, 20))).thenReturn(page);
 
 		Page<Immobile> pageResult =
 				service.getPropertiesToRental(immobileParameters);
@@ -85,7 +87,7 @@ public class ImmobileServiceTest {
 
 		verify(immobileParameters).getPage();
 		verify(immobileParameters, times(2)).getPortal();
-		verify(immobileRepository).findAllImobileToRentalForVivaReal(of(1, 20));
+		verify(immobileRepository).findAllImmobileToRentalForVivaReal(of(1, 20));
 
 	}
 
@@ -104,11 +106,73 @@ public class ImmobileServiceTest {
 
 		verify(immobileParameters, times(2)).getPortal();
 		verify(immobileParameters, times(0)).getPage();
-		verify(immobileRepository, times(0)).findAllImobileToRentalForVivaReal(of(1, 20));
-		verify(immobileRepository, times(0)).findAllImobileToRentalForZap(of(1, 20));
+		verify(immobileRepository, times(0)).findAllImmobileToRentalForVivaReal(of(1, 20));
+		verify(immobileRepository, times(0)).findAllImmobileToRentalForZap(of(1, 20));
 
 	}
 
+
+
+	// TESTE PARA IMOVEIS A VENDA
+
+
+
+	@Test
+	public void shouldGetThePropertiesToSaleForPortalZap() {
+
+		when(immobileParameters.getPage()).thenReturn(1);
+		when(immobileParameters.getPortal()).thenReturn("zap");
+		when(immobileRepository.findAllImmobileToSaleForZap(of(1, 20))).thenReturn(page);
+
+		Page<Immobile> pageResult =
+			  service.getPropertiesToSale(immobileParameters);
+
+		assertThat(pageResult, equalTo(page));
+
+		verify(immobileParameters).getPage();
+		verify(immobileParameters).getPortal();
+		verify(immobileRepository).findAllImmobileToSaleForZap(of(1, 20));
+
+	}
+
+
+	@Test
+	public void shouldGetThePropertiesToSaleForPortalVivaReal() {
+
+		when(immobileParameters.getPage()).thenReturn(1);
+		when(immobileParameters.getPortal()).thenReturn("vivareal");
+		when(immobileRepository.findAllImmobileToSaleForVivaReal(of(1, 20))).thenReturn(page);
+
+		Page<Immobile> pageResult =
+				service.getPropertiesToSale(immobileParameters);
+
+		assertThat(pageResult, equalTo(page));
+
+		verify(immobileParameters).getPage();
+		verify(immobileParameters, times(2)).getPortal();
+		verify(immobileRepository).findAllImmobileToSaleForVivaReal(of(1, 20));
+
+	}
+
+
+	@Test
+	public void shouldReturnOneEmptyPageOfImmobileWhenPortalIsNotZapOrVivaReal() {
+
+		when(immobileParameters.getPage()).thenReturn(1);
+		when(immobileParameters.getPortal()).thenReturn(null);
+
+		Page<Immobile> pageResult =
+				service.getPropertiesToSale(immobileParameters);
+
+		assertThat(pageResult, notNullValue());
+		assertThat(pageResult.getContent(), hasSize(0));
+
+		verify(immobileParameters, times(2)).getPortal();
+		verify(immobileParameters, times(0)).getPage();
+		verify(immobileRepository, times(0)).findAllImmobileToSaleForVivaReal(of(1, 20));
+		verify(immobileRepository, times(0)).findAllImmobileToSaleForZap(of(1, 20));
+
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package br.com.grupozap.challenge.service;
 
 import static org.apache.commons.lang3.StringUtils.upperCase;
+import static org.springframework.data.domain.Page.empty;
 import static org.springframework.data.domain.PageRequest.of;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +28,30 @@ public class ImmobileService {
 	public Page<Immobile> getPropertiesToRental(ImmobileParameters parameters) {
 
 		if(PORTAL_ZAP.equals(upperCase(parameters.getPortal()))) {
-			return immobileRepository.findAllImobileToRentalForZap(pageable(parameters));
+			return immobileRepository.findAllImmobileToRentalForZap(pageable(parameters));
 		}
 
 		if(PORTAL_VIVALREAL.equals(upperCase(parameters.getPortal()))) {
-			return immobileRepository.findAllImobileToRentalForVivaReal(pageable(parameters));
+			return immobileRepository.findAllImmobileToRentalForVivaReal(pageable(parameters));
 		}
 
-		return Page.empty();
+		return empty();
 	}
 
 
 
+	public Page<Immobile> getPropertiesToSale(ImmobileParameters parameters) {
 
+		if(PORTAL_ZAP.equals(upperCase(parameters.getPortal()))) {
+			return immobileRepository.findAllImmobileToSaleForZap(pageable(parameters));
+		}
 
+		if(PORTAL_VIVALREAL.equals(upperCase(parameters.getPortal()))) {
+			return immobileRepository.findAllImmobileToSaleForVivaReal(pageable(parameters));
+		}
+
+		return empty();
+	}
 
 
 
@@ -57,8 +68,6 @@ public class ImmobileService {
 	private Pageable pageable(ImmobileParameters parameters) {
 		return of(parameters.getPage(), PAGE_SIZE);
 	}
-
-
 
 
 }
