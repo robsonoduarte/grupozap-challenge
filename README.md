@@ -14,3 +14,10 @@ Testo descritivo
 * [Gradle](https://gradle.org/)
 * [MongoDB](https://www.mongodb.com/)
 * [Docker](https://www.docker.com/)
+
+### Requisitos:
+
+* [JDK 8](https://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html) instalado e configurado no path.
+* [Docker](https://docs.docker.com/install/) instalado e configurado no path (deploy).
+* [Lombok IDEs](https://projectlombok.org/setup/overview) para importação do projeto em IDE.
+
