@@ -16,7 +16,7 @@ import lombok.Value;
 
 
 @Value
-@Builder
+@Builder(toBuilder=true)
 @AllArgsConstructor(access = PRIVATE)
 @JsonDeserialize(builder = Immobile.ImmobileBuilder.class)
 public class Immobile {
@@ -38,4 +38,30 @@ public class Immobile {
 	@JsonPOJOBuilder(withPrefix="")
 	public static final class ImmobileBuilder{}
 
+
+	public Immobile increaseRentalTotalPrice(int percentage) {
+		if(this.pricingInfos == null) {
+			throw new IllegalStateException("The Immobile don't have one pricingInfos");
+		}
+
+		long rentalTotalPrice = this.pricingInfos.getRentalTotalPrice();
+		long increasedRentalTotalPrice = rentalTotalPrice + ((rentalTotalPrice * percentage) / 100);
+		return this.toBuilder()
+				.pricingInfos(this.pricingInfos.toBuilder().rentalTotalPrice(increasedRentalTotalPrice).build())
+				.build();
+	}
+
+
+
+	public Location location() {
+		if(this.address == null
+				|| this.address.getGeoLocation() == null
+				|| this.address.getGeoLocation().getLocation() == null) {
+			throw new IllegalStateException("The Immobile don't have one address or one geolocation or one location");
+		}
+		return this.address.getGeoLocation().getLocation();
+	}
+
+
 }
+

@@ -1,5 +1,7 @@
 package br.com.grupozap.challenge.service;
 
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
@@ -15,17 +17,22 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import br.com.grupozap.challenge.domain.Immobile;
+import br.com.grupozap.challenge.domain.Location;
 import br.com.grupozap.challenge.repository.ImmobileRepository;
 
 
 public class ImmobileServiceTest {
 
 
+
 	@InjectMocks
 	private ImmobileService service;
 
+	// MOCKS EM COMUM PARA OS TESTES
 
 	@Mock
 	private ImmobileRepository immobileRepository;
@@ -41,6 +48,29 @@ public class ImmobileServiceTest {
 
 	@Mock
 	private Page<Immobile> page;
+
+
+	@Mock
+	private Pageable pageable;
+
+
+	// MOCKS PARA TESTE DAS REGRAS DE BOUNDING BOX
+
+	@Mock
+	private Immobile immobileInBoundingBox; //imóvel no bounding box do grupo zap
+
+	@Mock
+	private Immobile immobileOutBoundingBox; // imóvel fora bounding box do grupo zap
+
+	@Mock
+	private Immobile immobileWithPricesModified; // imóvel com os preços recalculados
+
+	@Mock
+	private Location locationInBoundingBox; // location no bounding box do grupo zap
+
+	@Mock
+	private Location locationOutBoundingBox; // location fora do bounding box do grupo zap
+
 
 
 	@Before
@@ -74,20 +104,40 @@ public class ImmobileServiceTest {
 
 
 	@Test
-	public void shouldGetThePropertiesToRentalForPortalVivaReal() {
+	public void shouldGetThePropertiesToRentalForPortalVivaRealAndApplyCalcInRentalTotalPriceWhenImmobileInBoundingBoxOfGrupoZap() {
+
+
+		page = new PageImpl<>(asList(immobileInBoundingBox,immobileOutBoundingBox),pageable, 50L);
+
+
 
 		when(immobileParameters.getPage()).thenReturn(1);
 		when(immobileParameters.getPortal()).thenReturn("vivareal");
 		when(immobileRepository.findAllImmobileToRentalForVivaReal(of(1, 20))).thenReturn(page);
+		when(immobileInBoundingBox.location()).thenReturn(locationInBoundingBox);
+		when(immobileOutBoundingBox.location()).thenReturn(locationOutBoundingBox);
+		when(immobileInBoundingBox.increaseRentalTotalPrice(50)).thenReturn(immobileWithPricesModified);
+		when(boundingBoxGrupoZapService.isBoundingbox(locationInBoundingBox)).thenReturn(true);
+		when(boundingBoxGrupoZapService.isBoundingbox(locationOutBoundingBox)).thenReturn(false);
 
 		Page<Immobile> pageResult =
 				service.getPropertiesToRental(immobileParameters);
 
-		assertThat(pageResult, equalTo(page));
+		assertThat(pageResult.getContent(), hasSize(2));
+		assertThat(pageResult.getContent(), contains(immobileWithPricesModified,immobileOutBoundingBox));
+		assertThat(pageResult.getPageable(), equalTo(pageable));
+		assertThat(pageResult.getTotalElements(), equalTo(50L));
+
 
 		verify(immobileParameters).getPage();
 		verify(immobileParameters, times(2)).getPortal();
 		verify(immobileRepository).findAllImmobileToRentalForVivaReal(of(1, 20));
+		verify(immobileInBoundingBox).location();
+		verify(immobileOutBoundingBox).location();
+		verify(immobileInBoundingBox).increaseRentalTotalPrice(50);
+		verify(immobileOutBoundingBox, times(0)).increaseRentalTotalPrice(50);
+		verify(boundingBoxGrupoZapService).isBoundingbox(locationInBoundingBox);
+		verify(boundingBoxGrupoZapService).isBoundingbox(locationOutBoundingBox);
 
 	}
 

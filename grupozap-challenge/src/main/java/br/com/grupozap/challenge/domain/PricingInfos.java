@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value
-@Builder
+@Builder(toBuilder=true)
 @AllArgsConstructor(access = PRIVATE)
 @JsonDeserialize(builder = PricingInfos.PricingInfosBuilder.class)
 public class PricingInfos {
