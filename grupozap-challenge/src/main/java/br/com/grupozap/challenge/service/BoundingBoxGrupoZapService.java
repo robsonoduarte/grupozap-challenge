@@ -1,9 +1,11 @@
 package br.com.grupozap.challenge.service;
 
+import org.springframework.stereotype.Service;
+
 import br.com.grupozap.challenge.domain.Location;
 
 
-
+@Service
 public class BoundingBoxGrupoZapService {
 
 
