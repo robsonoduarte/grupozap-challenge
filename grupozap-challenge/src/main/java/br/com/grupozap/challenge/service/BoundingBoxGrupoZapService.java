@@ -17,6 +17,11 @@ public class BoundingBoxGrupoZapService {
 
 
 	public boolean isBoundingbox(Location location) {
+
+		if(location == null) {
+			throw new IllegalArgumentException("location is null");
+		}
+
 		return MIN_LAT <= location.getLat()
 				&& MAX_LAT >= location.getLat()
 				&& MIN_LON <= location.getLon()

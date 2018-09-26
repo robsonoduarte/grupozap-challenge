@@ -78,4 +78,10 @@ public class BoundingBoxGrupoZapServiceTest {
 	}
 
 
+	@Test(expected=IllegalArgumentException.class)
+	public void shouldShoulThrowOneIllegalArgumentExceptionWheLocationIsNull() {
+		service.isBoundingbox(null);
+	}
+
+
 }
