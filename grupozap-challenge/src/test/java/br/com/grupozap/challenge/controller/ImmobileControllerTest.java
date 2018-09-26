@@ -76,4 +76,29 @@ public class ImmobileControllerTest {
 
 
 
+	@Test
+	public void shouldGETThePropertiesToRentalInEndPointOfTheController() throws Exception {
+
+		ImmobileParameters parameters =
+				ImmobileParameters.builder().page(0).portal("zap").build();
+
+		when(immobileService.getPropertiesToRental(parameters)).thenReturn(page);
+
+		mockMvc.perform(get("/properties/rental?portal=zap&page=0"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(APPLICATION_JSON_UTF8))
+		.andExpect(jsonPath("$.content", hasSize(1)))
+		.andExpect(jsonPath("$.content[0].id", is("123")))
+		.andExpect(jsonPath("$.pageable.pageNumber", is(1)))
+		.andExpect(jsonPath("$.pageable.pageSize", is(20)))
+		.andExpect(jsonPath("$.totalElements", is(100)))
+		.andExpect(jsonPath("$.totalPages", is(5)));
+
+
+		verify(immobileService).getPropertiesToRental(parameters);
+	}
+
+
+
+
 }

@@ -22,6 +22,10 @@ public class ImmobileController {
 	}
 
 
+	@GetMapping("/properties/rental")
+	public Page<Immobile> getPropertiesToRental(RequestParameters parameters){
+		return immobileService.getPropertiesToRental(immobileParameters(parameters));
+	}
 
 
 
