@@ -43,3 +43,15 @@ gradlew distDocker
 docker run -p 8080:8080 grupozap-challenge:0.0.1
 ```
 
+### Testando a API:
+
+#### GET dos Imóveis para Aluguel:
+```
+http://localhost:8080/properties/rental?portal=vivareal&page=0
+```
+#### GET dos Imóveis para Venda:
+```
+http://localhost:8080/properties/sale?portal=zap&page=0
+```
+> Onde **portal** e o nome do portal e **page** é o número da página de paginação. caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
+
