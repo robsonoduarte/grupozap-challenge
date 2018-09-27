@@ -21,3 +21,13 @@ Testo descritivo
 * [Docker](https://docs.docker.com/install/) instalado e configurado no path (deploy).
 * [Lombok IDEs](https://projectlombok.org/setup/overview) para importação do projeto em IDE.
 
+### Exceutando o Projeto:
+
+> O [Gradle Wrrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) foi utilizado no projeto, então não é obrigatório sua instalação.Para executar em Windows use **gradlew** em Linux **./gradlew**
+
+#### Excecutando Localmente:
+```
+gradlew bootRun
+```
+
+
