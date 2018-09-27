@@ -29,5 +29,5 @@ Testo descritivo
 ```
 gradlew bootRun
 ```
-
+> O primeiro startup pode levar alguns minutos já que o Gradle resolverá todas as dependências do projeto e o Spring Boot realizara o download do MongoDB no seu startup.
 
