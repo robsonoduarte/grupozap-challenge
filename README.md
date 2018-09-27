@@ -53,7 +53,7 @@ http://localhost:8080/properties/rental?portal=vivareal&page=0
 ```
 http://localhost:8080/properties/sale?portal=zap&page=0
 ```
-> Onde **portal** e o nome do portal e **page** é o número da página de paginação. caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
+> Onde **portal** é o nome do portal e **page** é o número da página de paginação. caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
 
 ### JSON de Output:
 
