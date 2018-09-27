@@ -29,13 +29,13 @@ Testo descritivo
 ```
 gradlew bootRun
 ```
-> O primeiro startup pode levar alguns minutos já que o Gradle resolverá todas as dependências do projeto e o Spring Boot realizara o download do MongoDB no seu startup.
+> O primeiro startup pode levar alguns minutos já que o Gradle resolverá todas as dependências do projeto e o Spring Boot realizará o download do MongoDB no seu startup.
 
 #### Exectudando os Testes:
 ```
 gradle test
 ```
-> Os Testes **ImmobileRepositoryTest** e **ImmobileControllerTest** utiliza o contexto do [Spring Boot](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html) e como estamos realizando o load dos dados em memoria ( MongoDB Embarcado) no startup do Spring Boot, esse testes estão honerando o tempo total da execução dos testes.Entretando em um cenário mais real de desenvolvimento não estariamos trabalhando com dados em memória assim melhorando a performance dos testes. 
+> Os Testes **ImmobileRepositoryTest** e **ImmobileControllerTest** utilizam o contexto do [Spring Boot](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html) e como estamos realizando o load dos dados em memória ( MongoDB Embarcado) no startup do Spring Boot, estes testes estão honerando o tempo total da execução.Entretanto, em um cenário mais real de desenvolvimento não estaríamos trabalhando com dados em memória assim melhorando a performance dos testes. 
 
 #### Deploy (Docker):
 ```
@@ -53,7 +53,7 @@ http://localhost:8080/properties/rental?portal=vivareal&page=0
 ```
 http://localhost:8080/properties/sale?portal=zap&page=0
 ```
-> Onde **portal** é o nome do portal e **page** é o número da página de paginação. caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
+> Onde **portal** é o nome do portal e **page** é o número da página de paginação.Caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
 
 ### JSON de Output:
 
