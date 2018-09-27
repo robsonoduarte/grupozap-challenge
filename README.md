@@ -134,7 +134,7 @@ http://localhost:8080/properties/sale?portal=zap&page=0
          }
       },....
 ```
-#### Informações da paginação:
+#### Informações de paginação:
 ```
 ....
 ],
