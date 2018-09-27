@@ -55,3 +55,111 @@ http://localhost:8080/properties/sale?portal=zap&page=0
 ```
 > Onde **portal** e o nome do portal e **page** é o número da página de paginação. caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
 
+### JSON de Output:
+
+#### Imóveis (Content)
+```
+{
+   "content":[
+      {
+         "id":"95ea6fceedb0",
+         "usableAreas":90,
+         "listingType":"USED",
+         "createdAt":"2017-02-24T22:49:23.000+0000",
+         "listingStatus":"ACTIVE",
+         "parkingSpaces":2,
+         "updatedAt":"2017-02-24T22:49:23.000+0000",
+         "owner":false,
+         "images":[
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/c5daa0e282b925cd5feabb7aa38273ba.jpg"
+         ],
+         "address":{
+            "city":"São Paulo",
+            "neighborhood":"Vila Sao Francisco",
+            "geoLocation":{
+               "precision":"APPROXIMATE",
+               "location":{
+                  "lon":-46.494214,
+                  "lat":-23.521604
+               }
+            }
+         },
+         "bathrooms":3,
+         "bedrooms":3,
+         "pricingInfos":{
+            "period":null,
+            "yearlyIptu":0,
+            "price":620000,
+            "rentalTotalPrice":0,
+            "businessType":"SALE",
+            "monthlyCondoFee":0
+         }
+      },
+      {
+         "id":"d70ee5d4970f",
+         "usableAreas":55,
+         "listingType":"USED",
+         "createdAt":"2016-03-11T01:01:10.000+0000",
+         "listingStatus":"ACTIVE",
+         "parkingSpaces":2,
+         "updatedAt":"2016-03-11T01:01:10.000+0000",
+         "owner":false,
+         "images":[
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/f397c769508965effdf227598bc11465.jpg",
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/99cb16624116fec5fab445d7cd79b6ad.jpg",
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/2fbdaac44021a414d845214fb6e8b6e3.jpg",
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/eb3e04ea242766ca3608a36195bb6c4c.jpg",
+            "https://resizedimgs.vivareal.com/crop/400x300/vr.images.sp/76087a856315074cc961aac0eb990552.jpg"
+         ],
+         "address":{
+            "city":"São Paulo",
+            "neighborhood":"Jaguare",
+            "geoLocation":{
+               "precision":"APPROXIMATE",
+               "location":{
+                  "lon":-46.747535,
+                  "lat":-23.544274
+               }
+            }
+         },
+         "bathrooms":1,
+         "bedrooms":2,
+         "pricingInfos":{
+            "period":null,
+            "yearlyIptu":0,
+            "price":424000,
+            "rentalTotalPrice":0,
+            "businessType":"SALE",
+            "monthlyCondoFee":0
+         }
+      },....
+```
+#### Informações da paginação:
+```
+....
+],
+   "pageable":{
+      "sort":{
+         "unsorted":true,
+         "sorted":false
+      },
+      "pageSize":20,
+      "pageNumber":1,
+      "offset":20,
+      "unpaged":false,
+      "paged":true
+   },
+   "totalElements":4528,
+   "totalPages":227,
+   "last":false,
+   "numberOfElements":20,
+   "sort":{
+      "unsorted":true,
+      "sorted":false
+   },
+   "first":false,
+   "size":20,
+   "number":1
+}
+```
+
