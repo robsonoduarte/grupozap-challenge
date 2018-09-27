@@ -1,6 +1,6 @@
 # Code Challenge GrupoZap
 
-> Para resolução do desavio foi escolhida a opção 2 -> **Fazer uma API (backend)**
+> Para resolução do desafio foi escolhida a opção 2 -> **Fazer uma API (backend)**
 
 ### Tecnologias Mais Relevantes Utilizadas:
 * [Java 8](https://www.java.com/pt_BR/download/faq/java8.xml)
