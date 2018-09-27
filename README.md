@@ -21,7 +21,7 @@
 * [Docker](https://docs.docker.com/install/) instalado e configurado no path (deploy).
 * [Lombok IDEs](https://projectlombok.org/setup/overview) para importação do projeto em IDE.
 
-### Exceutando o Projeto:
+### Exceutando o Projeto
 
 > O [Gradle Wrrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) foi utilizado no projeto, então não é obrigatório sua instalação.Para executar em Windows use **gradlew** em Linux **./gradlew**
 
@@ -35,7 +35,7 @@ gradlew bootRun
 ```
 gradle test
 ```
-> Os Testes **ImmobileRepositoryTest** e **ImmobileControllerTest** utilizam o contexto do [Spring Boot](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html) e como estamos realizando o load dos dados em memória ( MongoDB Embarcado) no startup do Spring Boot, estes testes estão honerando o tempo total da execução.Entretanto, em um cenário mais real de desenvolvimento não estaríamos trabalhando com dados em memória assim melhorando a performance dos testes. 
+> Os Testes **ImmobileRepositoryTest** e **ImmobileControllerTest** utilizam o contexto do [Spring Boot](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html) e como estamos realizando o load dos dados em memória (MongoDB Embarcado) no startup do Spring Boot, estes testes estão honerando o tempo total da execução.Entretanto, em um cenário mais real de desenvolvimento não estaríamos trabalhando com dados em memória assim melhorando a performance dos testes. 
 
 #### Deploy (Docker):
 ```
@@ -43,7 +43,7 @@ gradlew distDocker
 docker run -p 8080:8080 grupozap-challenge:0.0.1
 ```
 
-### Testando a API:
+### Testando a API
 
 #### GET dos Imóveis para Aluguel:
 ```
@@ -55,9 +55,9 @@ http://localhost:8080/properties/sale?portal=zap&page=0
 ```
 > Onde **portal** é o nome do portal e **page** é o número da página de paginação.Caso o portal não seja informado o content do output será retornado vazio e caso o page não seja informado o valor 0 (default) será utilizado.
 
-### JSON de Output:
+### JSON de Output
 
-#### Imóveis (Content)
+#### Imóveis (Content):
 ```
 {
    "content":[
